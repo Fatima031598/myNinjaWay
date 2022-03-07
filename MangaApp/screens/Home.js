@@ -17,7 +17,6 @@ const Home = ({ navigation }) => {
       <View>
         <Image source={logo} style={styles.logo} />
       </View>
-
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('SignUp');

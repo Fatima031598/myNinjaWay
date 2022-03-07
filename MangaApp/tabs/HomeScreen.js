@@ -6,28 +6,14 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { useEffect, useState } from 'react';
 import MangaItem from '../components/MangaItem';
 import FeaturedManga from '../components/FeaturedManga';
+import { useContext } from 'react';
+import mangasContex from '../context/mangasContext';
 
-function HomeScreen() {
-  const [mangasList, setMangasList] = useState([]);
-  const [featuredManga, setFeaturedManga] = useState([]);
-
-  useEffect(() => {
-    ApiService.getMangas()
-      .then((arr) => {
-        setMangasList(arr);
-        return arr;
-      })
-      .then((mangasArr) => {
-        const manga = mangasArr.filter(
-          (manga) => manga.title === 'I Shall Live As a Prince',
-        );
-        setFeaturedManga(manga);
-        // console.log('featured: ', featuredManga);
-      });
-  }, []);
+function HomeScreen({ navigation }) {
+  const { mangasList, featuredManga } = useContext(mangasContex);
 
   const renderItem = ({ item }) => {
-    return <MangaItem manga={item}></MangaItem>;
+    return <MangaItem manga={item} navigation={navigation}></MangaItem>;
   };
   const actionList = mangasList.filter((manga) =>
     manga.genre.includes('Action'),
@@ -39,7 +25,6 @@ function HomeScreen() {
     manga.genre.includes('Adventure'),
   );
   const dramaList = mangasList.filter((manga) => manga.genre.includes('Drama'));
-
   return (
     <LinearGradient
       colors={['#e8fafe', '#66bad7', '#9cc072']}
@@ -48,12 +33,18 @@ function HomeScreen() {
       locations={[0, 0.7, 0.8]}
       style={styles.container}
     >
+      {/* maybe add animation and modal */}
+      {/* <Modal
+        animationType="slide"/> */}
       <ScrollView style={styles.mainScrollView}>
         <ScrollView style={[styles.mangaListContainer, styles.shadow]}>
-          {featuredManga[0] ? (
-            <FeaturedManga manga={featuredManga[0]}></FeaturedManga>
+          {featuredManga ? (
+            <FeaturedManga
+              manga={featuredManga}
+              navigation={navigation}
+            ></FeaturedManga>
           ) : (
-            <Text>loading...</Text>
+            <Text style={styles.text}>loading...</Text>
           )}
           <Text style={styles.text}>Action</Text>
           <FlatList
@@ -114,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontWeight: 'bold',
     color: 'white',
-    fontFamily: 'Avenir-HeavyOblique',
+    fontFamily: 'AppleSDGothicNeo-Bold',
   },
 });
 

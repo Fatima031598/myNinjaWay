@@ -6,9 +6,8 @@ import ProfileScreen from '../tabs/ProfileScreen';
 import { View, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-const Tab = createBottomTabNavigator();
-
-function Tabs() {
+function Tabs({ navigation }) {
+  const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -22,6 +21,7 @@ function Tabs() {
       }}
     >
       <Tab.Screen
+        navigation={navigation}
         name="Home"
         component={HomeScreen}
         options={{
@@ -105,4 +105,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
 export default Tabs;

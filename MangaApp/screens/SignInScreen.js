@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import logo from '../assets/bestLogoEver.png';
 import background from '../assets/background2.png';
@@ -13,33 +14,44 @@ import { TextInput } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const SignInScreen = ({ navigation }) => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  console.log(email);
+  console.log(password);
+  const onLogin = () => {
+    console.log('sending it to the database');
+    Alert.alert('Credentials', `${email} + ${password}`);
+    navigation.navigate('Tabs');
+  };
   return (
     <ImageBackground style={styles.container} source={background}>
       <View style={styles.header}>
         <Image source={logo} style={styles.logo} />
       </View>
-      <Text style={styles.Titletext}>Sign In</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Your email"
-        placeholderTextColor={'black'}
-      ></TextInput>
-      <TextInput
-        style={styles.input}
-        placeholder="Your password"
-        placeholderTextColor={'black'}
-      ></TextInput>
+      <View style={styles.form}>
+        <Text style={styles.Titletext}>Sign In</Text>
+        <TextInput
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          style={styles.input}
+          placeholder="Your email"
+          placeholderTextColor={'black'}
+        ></TextInput>
+        <TextInput
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          style={styles.input}
+          placeholder="Your password"
+          placeholderTextColor={'black'}
+        ></TextInput>
+      </View>
       <LinearGradient
         colors={['#ed4926', '#ed9c2d']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.btn}
       >
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Tabs');
-          }}
-        >
+        <TouchableOpacity onPress={() => onLogin()}>
           <Text style={styles.text}>LOGIN</Text>
         </TouchableOpacity>
       </LinearGradient>
@@ -48,6 +60,9 @@ const SignInScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  form: {
+    marginTop: 70,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -77,10 +92,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   Titletext: {
+    textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
     fontSize: 25,
     paddingVertical: 10,
+    marginBottom: 10,
+    marginHorizontal: 10,
   },
   header: {
     width: 370,

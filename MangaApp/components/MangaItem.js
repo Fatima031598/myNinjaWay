@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-const MangaItem = ({ manga }) => {
+const MangaItem = ({ manga, navigation }) => {
   const handlePress = () => {
-    console.log(manga.title);
+    navigation.navigate('MangaPreview', {
+      manga,
+    });
   };
   return (
     <TouchableOpacity
@@ -16,19 +18,13 @@ const MangaItem = ({ manga }) => {
 };
 const styles = StyleSheet.create({
   mangaContainer: {
-    // flexDirection: 'row',
-    // flex: 1,
     width: 128,
     height: 176,
-    // backgroundColor: 'red',
     marginHorizontal: 5,
-    // borderRadius: 0.5,
   },
   image: {
-    // opacity: 1,
     width: 128,
     height: 176,
-    // borderRadius: 0.5,
   },
 });
 export default MangaItem;
