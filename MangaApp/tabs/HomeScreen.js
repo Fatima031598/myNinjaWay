@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import ApiService from '../services/ApiService';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
-import { useEffect, useState } from 'react';
 import MangaItem from '../components/MangaItem';
 import FeaturedManga from '../components/FeaturedManga';
 import { useContext } from 'react';

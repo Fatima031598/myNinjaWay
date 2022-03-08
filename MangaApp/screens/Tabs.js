@@ -22,7 +22,7 @@ function Tabs({ navigation }) {
     >
       <Tab.Screen
         navigation={navigation}
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{
           headerShown: false,
@@ -47,6 +47,7 @@ function Tabs({ navigation }) {
         }}
       />
       <Tab.Screen
+        navigation={navigation}
         name="Favorites"
         component={FavoritesScreen}
         options={{
@@ -72,6 +73,7 @@ function Tabs({ navigation }) {
         }}
       />
       <Tab.Screen
+        navigation={navigation}
         name="Profile"
         component={ProfileScreen}
         options={{

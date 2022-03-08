@@ -16,7 +16,8 @@ const App = () => {
   const [mangasList, setMangasList] = useState([]);
   const [featuredManga, setFeaturedManga] = useState([]);
   const [favorites, setFavorites] = useState([]);
-
+  const [user, setUser] = useState({});
+  console.log(user);
   useEffect(() => {
     ApiService.getMangas()
       .then((arr) => {
@@ -33,7 +34,14 @@ const App = () => {
 
   return (
     <mangasContex.Provider
-      value={{ mangasList, featuredManga, favorites, setFavorites }}
+      value={{
+        mangasList,
+        featuredManga,
+        favorites,
+        setFavorites,
+        user,
+        setUser,
+      }}
     >
       <NavigationContainer>
         <Stack.Navigator>
@@ -47,6 +55,7 @@ const App = () => {
           <Stack.Screen
             name="SignUp"
             component={SignUpScreen}
+            // navigation={navigation}
             // options={{
             //   headerShown: false,
             // }}

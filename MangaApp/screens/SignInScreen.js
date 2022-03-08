@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,17 +12,32 @@ import logo from '../assets/bestLogoEver.png';
 import background from '../assets/background2.png';
 import { TextInput } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
+import ApiService from '../services/ApiService';
+import mangasContex from '../context/mangasContext';
 
 const SignInScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(mangasContex);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   console.log(email);
   console.log(password);
   const onLogin = () => {
-    console.log('sending it to the database');
-    Alert.alert('Credentials', `${email} + ${password}`);
-    navigation.navigate('Tabs');
+    let userLogin = {
+      email,
+      password,
+    };
+    ApiService.login(userLogin).then((res) => {
+      if (res._id) {
+        setUser(res);
+        navigation.navigate('Tabs');
+      } else {
+        Alert.alert('Wrong password or email');
+      }
+    });
   };
+  //for testing login
+  //{"email": "kevin@gmail.com",
+  // "password": "secret12345"}
   return (
     <ImageBackground style={styles.container} source={background}>
       <View style={styles.header}>

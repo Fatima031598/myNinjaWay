@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { stringify } = require('nodemon/lib/utils');
 
 const mangaSchema = new mongoose.Schema({
   title: String,
@@ -14,8 +13,20 @@ const mangaSchema = new mongoose.Schema({
   ],
 });
 
+const userSchema = new mongoose.Schema({
+  first_name: String,
+  last_name: String,
+  birthday: String,
+  phone_number: String,
+  email: String,
+  password: String,
+  image: String,
+  favorite_mangas: [],
+});
+
 const db = {};
-db.mangas = mongoose.model('Mangas', mangaSchema);
+db.Users = mongoose.model('Users', userSchema);
+db.Mangas = mongoose.model('Mangas', mangaSchema);
 db.mongoose = mongoose;
 
 module.exports = db;
