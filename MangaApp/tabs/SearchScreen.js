@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import mangasContex from '../context/mangasContext';
 import { useContext } from 'react';
 import MangaItem from '../components/MangaItem';
+import { TextInput } from 'react-native-gesture-handler';
 
-function FavoritesScreen({ navigation }) {
-  const { favorites } = useContext(mangasContex);
-
+function SearchScreen({ navigation }) {
+  const { mangasList } = useContext(mangasContex);
+  const [filteredData, setfilteredData] = useState(mangasList);
+  const [search, setSeacrh] = useState();
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = mangasList.filter((item) => {
+        return item.title.indexOf(text) > -1;
+      });
+      setfilteredData(newData);
+      setSeacrh(text);
+    } else {
+      setfilteredData(mangasList);
+      setSeacrh(text);
+    }
+  };
   const renderItem = ({ item }) => {
     return (
       <View style={styles.manga}>
@@ -35,9 +49,17 @@ function FavoritesScreen({ navigation }) {
       locations={[0, 0.7, 0.8]}
       style={styles.container}
     >
-      <Text style={styles.text}>Favorites</Text>
+      <View style={styles.header}>
+        <Text style={styles.text}>All</Text>
+        <TextInput
+          style={styles.searchInput}
+          value={search}
+          placeholder="Search"
+          onChangeText={(text) => searchFilter(text)}
+        ></TextInput>
+      </View>
       <FlatList
-        data={favorites}
+        data={filteredData}
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
         style={styles.mainScrollView}
@@ -57,12 +79,6 @@ const styles = StyleSheet.create({
     width: 350,
     marginBottom: 100,
     borderRadius: 25,
-  },
-  text: {
-    marginTop: 60,
-    fontSize: 35,
-    color: 'white',
-    fontFamily: 'AppleSDGothicNeo-Bold',
   },
   manga: {
     marginHorizontal: 10,
@@ -92,6 +108,32 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 5,
   },
+  searchInput: {
+    height: 40,
+    width: 130,
+    borderWidth: 1,
+    paddingLeft: 20,
+    margin: 5,
+    borderColor: 'grey',
+    borderRadius: 15,
+    fontWeight: 'bold',
+    marginRight: 20,
+    fontSize: 17,
+  },
+  text: {
+    marginLeft: 20,
+    fontSize: 35,
+    color: 'grey',
+    fontFamily: 'AppleSDGothicNeo-Bold',
+  },
+  header: {
+    alignItems: 'center',
+    marginTop: 60,
+    // backgroundColor: 'pink',
+    flexDirection: 'row',
+    width: 350,
+    justifyContent: 'space-between',
+  },
 });
 
-export default FavoritesScreen;
+export default SearchScreen;

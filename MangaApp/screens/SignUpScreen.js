@@ -6,34 +6,20 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-  Alert,
-  SafeAreaView,
 } from 'react-native';
 import logo from '../assets/bestLogoEver.png';
 import background from '../assets/background2.png';
 import { TextInput } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
-// import DateTimePicker from '@react-native-community/datetimepicker';
-// import moment from 'moment';
-// import { useForm } from 'react-hook-form';
 import ApiService from '../services/ApiService';
 import mangasContex from '../context/mangasContext';
-
-//MMMM Do, YYYY
 
 const SignUpScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  // const [birthday, setBirthday] = useState(moment(new Date()));
-  // const [phoneNumber, setPhoneNumber] = useState();
   const { user, setUser } = useContext(mangasContex);
-
-  // const handleDateChange = (e, selectedTime) => {
-  //   setBirthday(selectedTime);
-  // };
-  // const { register, handleSubmit, watch, errors } = useForm();
 
   const onLogin = () => {
     let newUser = {
@@ -47,7 +33,6 @@ const SignUpScreen = ({ navigation }) => {
       favorite_mangas: [],
     };
     ApiService.postUser(newUser).then((res) => setUser(res));
-    // Alert.alert('Credentials', `${firstName} + ${lastName}`);
     navigation.navigate('Tabs');
   };
   console.log('user: ', user);
@@ -57,17 +42,13 @@ const SignUpScreen = ({ navigation }) => {
         <Image source={logo} style={styles.logo} />
       </View>
       <Text style={styles.Titletext}>Register</Text>
-      {/* <SafeAreaView> */}
       <TextInput
-        // ref={register({ required: true })}
-        // {...register('firstName', { required: true })}
         value={firstName}
         onChangeText={(text) => setFirstName(text)}
         style={styles.input}
         placeholder="First name"
         placeholderTextColor={'black'}
       ></TextInput>
-      {/* </SafeAreaView> */}
       <TextInput
         value={lastName}
         onChangeText={(text) => setLastName(text)}
@@ -90,30 +71,6 @@ const SignUpScreen = ({ navigation }) => {
         placeholderTextColor={'black'}
         secureTextEntry={true}
       ></TextInput>
-      {/* <TouchableOpacity style={styles.input}>
-        <DateTimePicker
-          style={styles.dateInput}
-          placeholderText="Your birthday"
-          timeZoneOffsetInMinutes={0}
-          value={new Date(birthday)}
-          mode="date"
-          minimumDate={
-            new Date(moment().subtract(120, 'years').format('YYYY-MM-DD'))
-          }
-          maximumDate={new Date(moment().format('YYYY-MM-DD'))}
-          onChange={handleDateChange}
-        />
-      </TouchableOpacity>
-      <TextInput
-        value={phoneNumber}
-        onChangeText={(text) => setPhoneNumber(text)}
-        style={styles.input}
-        placeholder="Your phone number"
-        placeholderTextColor={'black'}
-        secureTextEntry={true}
-        // keyboardType="numeric"
-        // dataDetectorTypes="phoneNumber"
-      ></TextInput> */}
       <LinearGradient
         colors={['#ed4926', '#ed9c2d']}
         start={{ x: 0, y: 0 }}

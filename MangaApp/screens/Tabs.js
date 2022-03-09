@@ -5,6 +5,7 @@ import FavoritesScreen from '../tabs/FavoritesScreen';
 import ProfileScreen from '../tabs/ProfileScreen';
 import { View, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import SearchScreen from '../tabs/SearchScreen';
 
 function Tabs({ navigation }) {
   const Tab = createBottomTabNavigator();
@@ -22,7 +23,7 @@ function Tabs({ navigation }) {
     >
       <Tab.Screen
         navigation={navigation}
-        name="HomeScreen"
+        name="Home"
         component={HomeScreen}
         options={{
           headerShown: false,
@@ -36,6 +37,32 @@ function Tabs({ navigation }) {
             >
               <FontAwesome
                 name="home"
+                size={40}
+                style={{
+                  color: focused ? '#e32f45' : '#748c94',
+                  ...styles.text,
+                }}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        navigation={navigation}
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: 15,
+              }}
+            >
+              <FontAwesome
+                name="search"
                 size={40}
                 style={{
                   color: focused ? '#e32f45' : '#748c94',

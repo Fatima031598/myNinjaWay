@@ -9,6 +9,7 @@ import mangasContex from './context/mangasContext';
 import React, { useState, useEffect } from 'react';
 import ApiService from './services/ApiService';
 import ReadMangascreen from './screens/ReadMangaScreen';
+import CommentsScreen from './screens/CommentsScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,6 @@ const App = () => {
   const [featuredManga, setFeaturedManga] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [user, setUser] = useState({});
-  console.log(user);
   useEffect(() => {
     ApiService.getMangas()
       .then((arr) => {
@@ -46,27 +46,14 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="Home"
+            name="HomeScreen"
             component={Home}
             options={{
               headerShown: false,
             }}
           />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUpScreen}
-            // navigation={navigation}
-            // options={{
-            //   headerShown: false,
-            // }}
-          />
-          <Stack.Screen
-            name="SignIn"
-            component={SignInScreen}
-            // options={{
-            //   headerShown: false,
-            // }}
-          />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen
             name="Tabs"
             component={Tabs}
@@ -84,6 +71,13 @@ const App = () => {
           <Stack.Screen
             name="ReadManga"
             component={ReadMangascreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Comments"
+            component={CommentsScreen}
             options={{
               headerShown: false,
             }}

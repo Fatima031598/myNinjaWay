@@ -35,9 +35,6 @@ const SignInScreen = ({ navigation }) => {
       }
     });
   };
-  //for testing login
-  //{"email": "kevin@gmail.com",
-  // "password": "secret12345"}
   return (
     <ImageBackground style={styles.container} source={background}>
       <View style={styles.header}>
@@ -58,6 +55,7 @@ const SignInScreen = ({ navigation }) => {
           style={styles.input}
           placeholder="Your password"
           placeholderTextColor={'black'}
+          secureTextEntry={true}
         ></TextInput>
       </View>
       <LinearGradient

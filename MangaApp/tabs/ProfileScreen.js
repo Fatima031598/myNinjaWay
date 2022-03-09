@@ -1,18 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ImageBackground,
-  Text,
-} from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
-import background from '../assets/mangaAppBackground.png';
 import { FontAwesome } from '@expo/vector-icons';
 import { Zocial } from '@expo/vector-icons';
 import mangasContex from '../context/mangasContext';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function ProfileScreen({ navigation }) {
   const [userImage, setUserImage] = useState(null);
@@ -34,11 +27,17 @@ function ProfileScreen({ navigation }) {
     }));
   };
   const handleLogout = () => {
-    //send a put request here, make the profile editible in the future
-    navigation.navigate('Home');
+    //send a put request here, make the profile editable in the future
+    navigation.navigate('HomeScreen');
   };
   return (
-    <ImageBackground style={{ flex: 1 }} source={background}>
+    <LinearGradient
+      colors={['#e8fafe', '#66bad7', '#9cc072']}
+      start={{ x: 1, y: 0 }}
+      end={{ x: 1, y: 0.8 }}
+      locations={[0, 0.7, 0.8]}
+      style={{ flex: 1 }}
+    >
       <View style={styles.container}>
         <TouchableOpacity
           onPress={openImagePickerAsync}
@@ -66,7 +65,7 @@ function ProfileScreen({ navigation }) {
         </View>
         <View style={styles.infoContainer}>
           <AntDesign name="calendar" size={24} color="black" />
-          <Text style={styles.info}>Birthday</Text>
+          <Text style={styles.info}>March 15, 1965</Text>
         </View>
         <View style={styles.infoContainer}>
           <FontAwesome name="mobile-phone" size={34} color="black" />
@@ -84,7 +83,7 @@ function ProfileScreen({ navigation }) {
           <Text style={styles.btnText}>Logout</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 

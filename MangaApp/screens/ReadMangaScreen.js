@@ -21,11 +21,9 @@ function MangaPreviewScreen({ navigation, route }) {
         Image.getSize(
           img,
           (width, height) => {
-            // successfully got image dimensions
             resolve({ url: img, width, height });
           },
           () => {
-            // error case
             console.warn(`Error with ${img}`);
             resolve(null);
           },

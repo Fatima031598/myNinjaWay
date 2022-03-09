@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { Audio } from 'expo-av';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -24,6 +25,17 @@ const MangaPreviewScreen = ({ navigation, route }) => {
       setFavorites(fav);
     }
     setToggleHeart(!toggleHeart);
+  };
+
+  const [sound, setSound] = React.useState();
+  const textToSpeech = async () => {
+    if (manga) {
+      const { sound } = await Audio.Sound.createAsync(
+        require('./mp3_files/ArcanaFantasy.mp3'),
+      );
+      setSound(sound);
+      await sound.playAsync();
+    }
   };
   useEffect(() => {
     if (toggleHeart && !favorites.includes(manga)) {
@@ -50,6 +62,20 @@ const MangaPreviewScreen = ({ navigation, route }) => {
           style={styles.goBack}
         >
           <AntDesign name="arrowleft" size={35} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => textToSpeech()}>
+          <AntDesign
+            name="play"
+            size={32}
+            color="white"
+            style={styles.playIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Comments')}
+          style={styles.commentSection}
+        >
+          <FontAwesome name="comments" size={35} color="white" />
         </TouchableOpacity>
         <TouchableOpacity onPress={toggleHeartFunc} style={styles.heart}>
           {toggleHeart ? (
@@ -94,14 +120,6 @@ const styles = StyleSheet.create({
     fontFamily: 'AppleSDGothicNeo-Medium',
     marginBottom: 20,
   },
-  title: {
-    marginHorizontal: 40,
-    textAlign: 'center',
-    fontSize: 25,
-    color: 'white',
-    fontFamily: 'AppleSDGothicNeo-Bold',
-    marginVertical: 10,
-  },
   chapterContainer: {
     backgroundColor: 'grey',
     width: windowWidth - 30,
@@ -121,14 +139,31 @@ const styles = StyleSheet.create({
   goBack: {
     marginLeft: 20,
     marginVertical: 10,
+    marginRight: 170,
   },
   heart: {
     marginRight: 20,
     marginVertical: 10,
+    marginLeft: 25,
   },
   iconsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+  },
+  commentSection: {
+    marginTop: 6,
+  },
+  title: {
+    marginHorizontal: 40,
+    textAlign: 'center',
+    fontSize: 25,
+    color: 'white',
+    fontFamily: 'AppleSDGothicNeo-Bold',
+    marginVertical: 10,
+  },
+  playIcon: {
+    marginRight: 25,
+    marginVertical: 10,
   },
 });
 
