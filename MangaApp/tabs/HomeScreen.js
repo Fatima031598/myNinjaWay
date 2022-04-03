@@ -31,9 +31,6 @@ function HomeScreen({ navigation }) {
       locations={[0, 0.7, 0.8]}
       style={styles.container}
     >
-      {/* maybe add animation and modal */}
-      {/* <Modal
-        animationType="slide"/> */}
       <ScrollView style={styles.mainScrollView}>
         <ScrollView style={[styles.mangaListContainer, styles.shadow]}>
           {featuredManga ? (

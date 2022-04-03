@@ -1,12 +1,12 @@
 const baseUrl = 'http://localhost:5050';
 // require('dotenv').config();
 
-const getMangas = () => {
+const getMangas = async () => {
   return fetch(`${baseUrl}/mangas`)
     .then((res) => res.json())
     .catch((e) => console.log(e));
 };
-const postUser = (data) => {
+const postUser = async (data) => {
   return fetch(`${baseUrl}/users`, {
     method: 'POST',
     credentials: 'include',
@@ -17,7 +17,7 @@ const postUser = (data) => {
     .then((res) => res.json())
     .catch((e) => console.log(e));
 };
-const login = (data) => {
+const login = async (data) => {
   return fetch(`${baseUrl}/login`, {
     method: 'POST',
     credentials: 'include',
