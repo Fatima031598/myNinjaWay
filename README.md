@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="images/logo.png" width="400"
-     height="500"/>
+  <img src="images/logo.png" width="300"
+     height="300"/>
 </p>
 
 My Ninja Way is a mobile app for reading manga. It was created in order to simplify the process of accessing and reading manga. This app allows you to read, search, favorite and comment on your favorite mangas.
